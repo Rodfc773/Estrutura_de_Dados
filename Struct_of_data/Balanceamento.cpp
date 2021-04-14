@@ -143,8 +143,6 @@ no *Balancear(no *arvore)
         
         arvore->fator = Fator(arvore->lef, arvore->right);
 
-        printf("Nó: %d, Fator:%d\n\n",arvore->info, arvore->fator);
-
         if (arvore->fator < -1)
         {
             aux = arvore->right;
@@ -153,13 +151,12 @@ no *Balancear(no *arvore)
 
             if (aux->fator == 1)
             {
-                printf("ta entrando no if\n\n");
+                
                 arvore->right = Rot_direita(arvore->right);
                 arvore = Rot_esquerda(arvore);
             }
             else
-            {
-                printf("ta entrando no else\n\n");
+            {   
                 arvore = Rot_esquerda(arvore);
             }
              
@@ -330,7 +327,30 @@ void Pos_ordem(no *arvore)
         Inordem(arvore->right);
 
         printf(")");
-        printf(", %d [ALtura: %d, Nivel: %d], ", arvore->info, arvore->altura, arvore->nivel);
+        printf(", %d,  ", arvore->info);
+    }
+}
+void Pre_ordem(no *arvore)
+{
+    if (arvore == NULL)
+    {
+        printf("NULL");
+    }
+    else
+    {
+        printf(",%d, ", arvore->info);
+       
+        printf("(");
+
+        Inordem(arvore->lef);
+
+        printf(")");
+
+        printf("(");
+
+        Inordem(arvore->right);
+
+        printf(")");
     }
 }
 int main()
@@ -347,7 +367,7 @@ int main()
     {
        printf("!-- Sistema de Arvore --!\n");
 
-       printf("|(1) : Inserir\n|(2) : Remover\n|(3) : Inordem\n|(4) : Pre-ordem\n|(5) : Pos-ordem\n|(6) : Balancear\n");
+       printf("|(1) : Inserir\n|(2) : Remover\n|(3) : Inordem\n|(4) : Pre-ordem\n|(5) : Pos-ordem\n|(6) : Balancear\n|(qualquer outra tecla) : Sair\n");
 
        printf("!-----------------------!\n");
 
@@ -384,13 +404,29 @@ int main()
        {    
             system("clear");
             printf("\nInordem: ");
-            printf("\n");
-
             Inordem(arvore);
             printf("\n\n");
 
             continue;
        }
+       if (opcao == 4)
+       {
+            system("clear");
+            printf("\nPre-ordem: ");
+            Pre_ordem(arvore);
+            printf("\n\n");
+            continue;
+       }
+       if (opcao == 5)
+       {
+           system("clear");
+           printf("\nPos-ordem: ");
+
+           Pos_ordem(arvore);
+           printf("\n\n");
+           continue;
+       }
+       
        if (opcao == 6)
        {
             system("clear");
