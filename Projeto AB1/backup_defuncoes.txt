@@ -1,0 +1,98 @@
+no *Remover_por_cordenada(no *arvore, int lat, int log)
+{
+    if (arvore == NULL)
+    {
+        return NULL;
+    }
+    else
+    {
+        
+        Remover_por_cordenada(arvore->esq, lat, log);
+
+        if (arvore->lat = lat && arvore->log == log)
+        {
+            if (arvore->esq == NULL && arvore->dir == NULL)
+            {
+                free(arvore);
+                return NULL;
+            }
+            else if (arvore->dir == NULL)
+            {
+                no *aux;
+                aux = arvore;
+                arvore = arvore->esq;
+                free(aux);
+                return arvore;
+            }
+            else if (arvore->esq == NULL)
+            {  
+                no *aux;
+                aux = arvore;
+                arvore = arvore->dir;
+                free(aux);
+                return arvore;
+            }
+            else
+            {
+                no *aux = arvore->esq;
+
+                char nome[25];
+
+                strcpy(nome, arvore->nome);
+
+                while (aux->dir != NULL)
+                {
+                    aux = aux->dir;
+                }      
+                strcpy(arvore->nome, aux->nome);
+                arvore->lat = aux->lat;
+                arvore->log = aux->log;
+
+                strcpy(aux->nome, nome);
+                aux->lat = lat;
+                aux->log = log;
+
+                arvore->esq = Remover_por_cordenada(arvore->esq, lat, log);
+            }
+                
+        } 
+        Remover_por_cordenada(arvore->dir, lat, log);
+
+        return arvore;
+        
+    }
+    
+}
+Lista *Remover_lista_por_cordenada(Lista *list, int lat, int log)
+{
+    Lista *aux;
+    no* altura;
+
+    aux = list;
+
+    altura = list->arv;
+
+    if (list == NULL)
+    {
+        printf("!-- A base de dados tá vazia --!\n");
+
+        return list;
+    }
+    else
+    {
+       
+        while (list != NULL)
+        {   
+            list = list->proximo;
+
+            aux->arv = Remover_por_cordenada(aux->arv, lat, log);
+
+            if (aux->arv == NULL)
+            {
+                free(aux);
+            }     
+           
+        }
+        return list;
+    }
+}
